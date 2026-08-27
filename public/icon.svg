@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="fiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#fiGradient)" />
+  <path d="M19 6H10C8.89543 6 8 6.89543 8 8V24C8 25.1046 8.89543 26 10 26H22C23.1046 26 24 25.1046 24 24V11L19 6Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="19 6 19 11 24 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="12 18 14.5 20.5 19.5 15.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

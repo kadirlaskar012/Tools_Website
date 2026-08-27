@@ -70,6 +70,15 @@ export const metadata: Metadata = {
     description:
       'Fast, privacy-first online file analysis toolkit. Inspect file properties, metadata, hidden content, and encodings locally in your browser.',
   },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
