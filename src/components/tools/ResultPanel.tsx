@@ -15,13 +15,15 @@ import {
 } from 'lucide-react';
 import { AnalysisResult } from '@/lib/types';
 import { formatFileSize } from '@/lib/utils';
+import { FilePreview } from './FilePreview';
 
 interface ResultPanelProps {
   result: AnalysisResult;
+  file?: File | null;
   onReset: () => void;
 }
 
-export function ResultPanel({ result, onReset }: ResultPanelProps) {
+export function ResultPanel({ result, file, onReset }: ResultPanelProps) {
   const [copied, setCopied] = useState(false);
 
   const getStatusBadge = () => {
@@ -180,6 +182,13 @@ export function ResultPanel({ result, onReset }: ResultPanelProps) {
           </div>
         )}
       </div>
+
+      {/* Visual File Preview (Image / PDF / Spreadsheet / Code / Document / Hex) */}
+      {file && (
+        <div className="p-6 sm:p-7 border-b border-slate-100 dark:border-slate-800">
+          <FilePreview file={file} headline={result.headline} />
+        </div>
+      )}
 
       {/* Key Metric Properties Grid */}
       <div className="p-6 sm:p-7">

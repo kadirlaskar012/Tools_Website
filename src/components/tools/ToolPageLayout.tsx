@@ -254,7 +254,11 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
             )}
 
             {result && !isProcessing && (
-              <ResultPanel result={result} onReset={handleReset} />
+              <ResultPanel
+                result={result}
+                file={selectedFile}
+                onReset={handleReset}
+              />
             )}
           </div>
         </section>
