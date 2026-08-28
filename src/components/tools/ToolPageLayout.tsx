@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   FileCheck,
@@ -51,6 +51,29 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
   const [parseError, setParseError] = useState<string | null>(null);
 
   const category = CATEGORIES[tool.category];
+  const workspaceRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // When tool page opens fresh, align tool workspace 4px below header edge
+    const alignToolWorkspace = () => {
+      if (workspaceRef.current && window.scrollY < 30) {
+        const headerEl = document.querySelector('header');
+        const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 68;
+        const rect = workspaceRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop - headerHeight - 4;
+        if (targetY > 0) {
+          window.scrollTo({
+            top: targetY,
+            behavior: 'instant' as ScrollBehavior,
+          });
+        }
+      }
+    };
+
+    const timer = setTimeout(alignToolWorkspace, 30);
+    return () => clearTimeout(timer);
+  }, [tool.slug]);
 
   const handleFileSelect = async (file: File) => {
     setSelectedFile(file);
@@ -123,7 +146,7 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
   const relatedTools = getRelatedTools(tool.id).slice(0, 5);
 
   return (
-    <div className="w-full relative overflow-hidden">
+    <div className="w-full relative">
       {/* Background ambient lighting (GPU accelerated) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] pointer-events-none -z-10 transform-gpu overflow-hidden">
         <div className={`absolute top-0 left-1/3 w-96 h-96 ${theme.bgOrb} rounded-full blur-2xl opacity-70`}></div>
@@ -185,8 +208,10 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
 
         {/* Interactive Tool Workspace (Focused Glassmorphism Container) */}
         <section
+          ref={workspaceRef}
+          id="tool-workspace"
           aria-label="Tool Workspace"
-          className="my-6 relative group"
+          className="my-6 relative group scroll-mt-20"
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
 
