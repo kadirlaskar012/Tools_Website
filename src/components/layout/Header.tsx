@@ -7,6 +7,7 @@ import { Search, Menu, FileCheck } from 'lucide-react';
 import { CATEGORY_LIST } from '@/lib/categories-registry';
 import { CommandSearch } from './CommandSearch';
 import { MobileNav } from './MobileNav';
+import { ThemeToggle } from './ThemeToggle';
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -115,6 +116,9 @@ export function Header() {
                   ⌘K
                 </kbd>
               </button>
+
+              {/* Theme Toggle (Auto Day/Night, Light, Dark) */}
+              <ThemeToggle />
 
               <button
                 onClick={() => setIsMobileMenuOpen(true)}

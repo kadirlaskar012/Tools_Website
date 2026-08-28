@@ -100,9 +100,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var pref=localStorage.getItem('fi_theme')||'auto';var isDark=false;if(pref==='dark'){isDark=true;}else if(pref==='light'){isDark=false;}else{var h=new Date().getHours();isDark=(h>=18||h<6);}if(isDark){document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('dark');document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-150">
         <WebsiteOrganizationSchema />
         <Header />
         <main className="flex-1 w-full">{children}</main>

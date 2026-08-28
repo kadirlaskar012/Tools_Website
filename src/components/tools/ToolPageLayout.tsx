@@ -23,9 +23,12 @@ import {
   FileBox,
   HelpCircle,
   Table,
+  Lock,
+  ChevronRight,
 } from 'lucide-react';
 import { ToolDefinition, AnalysisResult } from '@/lib/types';
 import { CATEGORIES } from '@/lib/categories-registry';
+import { POPULAR_TOOLS, getRelatedTools } from '@/lib/tools-registry';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { PrivacyNotice } from './PrivacyNotice';
 import { FileDropzone } from './FileDropzone';
@@ -117,25 +120,30 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
   };
 
   const theme = getCategoryTheme(tool.category);
+  const popularTools = POPULAR_TOOLS.filter((t) => t.id !== tool.id).slice(0, 5);
+  const relatedTools = getRelatedTools(tool.id).slice(0, 5);
 
   return (
     <div className="w-full relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[450px] pointer-events-none -z-10">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] pointer-events-none -z-10">
         <div className={`absolute top-0 left-1/3 w-96 h-96 ${theme.bgOrb} rounded-full blur-3xl`}></div>
       </div>
 
       {/* Schema.org WebApplication Structured Data */}
       <WebApplicationSchema tool={tool} />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-12 sm:pt-4 sm:pb-16">
-        {/* Breadcrumbs */}
-        <Breadcrumbs
-          items={[
-            { label: category.name, href: `/${category.slug}` },
-            { label: tool.title },
-          ]}
-        />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-12 sm:pt-4 sm:pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Main Left Content Area (col-span-8) */}
+          <main className="lg:col-span-8 w-full min-w-0">
+            {/* Breadcrumbs */}
+            <Breadcrumbs
+              items={[
+                { label: category.name, href: `/${category.slug}` },
+                { label: tool.title },
+              ]}
+            />
 
         {/* Hero Header */}
         <header className="mb-5 sm:mb-6">
@@ -548,19 +556,101 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
           {/* 9. FAQs (Interactive Accordion) */}
           <ToolFAQ faqs={tool.faqs} />
 
-          <hr className="border-slate-200/80 dark:border-slate-800" />
-
-          {/* 10. Related Tools */}
-          <RelatedTools
-            toolId={tool.id}
-            categorySlug={category.slug}
-            categoryName={category.name}
-          />
+          {/* 10. Mobile-Visible Related Tools */}
+          <div className="lg:hidden">
+            <hr className="border-slate-200/80 dark:border-slate-800 my-8" />
+            <RelatedTools
+              toolId={tool.id}
+              categorySlug={category.slug}
+              categoryName={category.name}
+            />
+          </div>
         </div>
-      </div>
+      </main>
 
-      {/* Floating Go To Top Button */}
-      <ScrollToTop />
+      {/* RIGHT COLUMN: Desktop Sidebar (col-span-4 hidden lg:block) */}
+      <aside className="hidden lg:block lg:col-span-4 sticky top-20 space-y-6">
+        {/* Popular Tools Card */}
+        <div className="p-5 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-3.5">
+          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-100 dark:border-slate-800">
+            <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+              Popular Tools
+            </h3>
+          </div>
+          <div className="space-y-1.5">
+            {popularTools.map((pt) => (
+              <Link
+                key={pt.id}
+                href={`/tools/${pt.slug}`}
+                className="group flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition flex-shrink-0">
+                    <FileCheck className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition truncate">
+                    {pt.title}
+                  </span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Tools Card */}
+        <div className="p-5 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-3.5">
+          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-100 dark:border-slate-800">
+            <div className="p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+              <Layers className="w-4 h-4" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+              Related Tools
+            </h3>
+          </div>
+          <div className="space-y-1.5">
+            {relatedTools.map((rt) => (
+              <Link
+                key={rt.id}
+                href={`/tools/${rt.slug}`}
+                className="group flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition flex-shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition truncate">
+                    {rt.title}
+                  </span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Client-Side Privacy Card */}
+        <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-50/70 to-purple-50/70 dark:from-indigo-950/30 dark:to-purple-950/30 border border-indigo-100 dark:border-indigo-900/60 space-y-2.5">
+          <div className="flex items-center gap-2 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider">
+            <Lock className="w-3.5 h-3.5" />
+            <span>Local Browser Privacy</span>
+          </div>
+          <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            All inspection runs inside your browser sandbox. Your files never leave your device.
+          </p>
+        </div>
+
+        {/* Sidebar Ad Slot */}
+        <AdSlot slotId={`tool-${tool.id}-sidebar`} format="rectangle" />
+      </aside>
     </div>
+  </div>
+
+  {/* Floating Go To Top Button */}
+  <ScrollToTop />
+</div>
   );
 }
