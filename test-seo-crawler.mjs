@@ -14,7 +14,7 @@ async function fetchPage(url) {
 
 async function runTechnicalSeoAudit() {
   console.log('==================================================');
-  console.log('STARTING ADVANCED SITEMAP & TECHNICAL SEO AUDIT');
+  console.log('STARTING ADVANCED LIVE CHECK & TECHNICAL SEO AUDIT');
   console.log('==================================================\n');
 
   const visited = new Set();
@@ -30,11 +30,13 @@ async function runTechnicalSeoAudit() {
     '/terms',
     '/disclaimer',
     '/sitemap',
+    '/articles',
     '/image-tools',
     '/pdf-tools',
     '/office-tools',
     '/file-tools',
     '/privacy-tools',
+    // 10 Tools
     '/tools/xlsx-hidden-sheet-detector',
     '/tools/pdf-page-size-checker',
     '/tools/image-dpi-checker',
@@ -45,6 +47,22 @@ async function runTechnicalSeoAudit() {
     '/tools/file-type-checker',
     '/tools/image-bit-depth-checker',
     '/tools/file-encoding-detector',
+    // 15 Educational Articles
+    '/articles/how-to-find-hidden-sheets-in-excel',
+    '/articles/how-to-unhide-very-hidden-sheets-in-excel',
+    '/articles/how-to-find-external-links-in-excel',
+    '/articles/how-to-view-and-remove-word-document-metadata',
+    '/articles/how-to-find-hidden-slides-in-powerpoint',
+    '/articles/how-to-check-pdf-page-size-and-dimensions',
+    '/articles/pdf-mediabox-cropbox-trimbox-explained',
+    '/articles/why-embedded-fonts-matter-in-pdf',
+    '/articles/how-to-check-if-fonts-are-embedded-in-pdf',
+    '/articles/dpi-vs-ppi-explained-for-print-and-web',
+    '/articles/how-to-check-image-dpi-and-print-resolution',
+    '/articles/8-bit-vs-16-bit-image-color-depth',
+    '/articles/what-are-file-magic-bytes-and-signatures',
+    '/articles/what-is-utf8-bom-and-why-does-it-break-parsers',
+    '/articles/how-to-fix-mojibake-and-character-encoding-errors',
   ];
 
   expectedPages.forEach((p) => {
@@ -53,7 +71,6 @@ async function runTechnicalSeoAudit() {
 
   const titles = new Map();
   const descriptions = new Map();
-  const canonicals = new Map();
 
   while (queue.length > 0) {
     const path = queue.shift();
@@ -122,7 +139,7 @@ async function runTechnicalSeoAudit() {
         schemas: validSchemas,
       });
 
-      console.log(`✓ [200 OK] ${path.padEnd(36)} | H1: ${h1Count} | Schema: ${validSchemas} | Title: "${title.slice(0, 45)}..."`);
+      console.log(`✓ [200 OK] ${path.padEnd(55)} | H1: ${h1Count} | Schema: ${validSchemas} | Title: "${title.slice(0, 40)}..."`);
     } catch (e) {
       errors.push(`[Fetch Error] Could not connect to ${path}: ${e.message}`);
     }
@@ -136,7 +153,7 @@ async function runTechnicalSeoAudit() {
     { path: '/sitemap-pages.xml', rootTag: '<urlset', desc: 'Static Pages Sitemap' },
     { path: '/sitemap-categories.xml', rootTag: '<urlset', desc: 'Categories Sitemap' },
     { path: '/sitemap-tools.xml', rootTag: '<urlset', desc: 'Tools Dynamic Sitemap' },
-    { path: '/sitemap-articles.xml', rootTag: '<urlset', desc: 'Future Articles Sitemap' },
+    { path: '/sitemap-articles.xml', rootTag: '<urlset', desc: '15 Articles Sitemap' },
   ];
 
   for (const sm of sitemapEndpoints) {
@@ -155,11 +172,11 @@ async function runTechnicalSeoAudit() {
     }
   }
 
-  // 7. Test Robots.txt
+  // 7. Test Robots.txt & Manifest & Favicon
   try {
     const robotsRes = await fetchPage(`${BASE_URL}/robots.txt`);
     const declaresSitemap = robotsRes.body.includes('sitemap.xml');
-    console.log(`✓ [200 OK] /robots.txt               | Robots File | Sitemap declared: ${declaresSitemap}`);
+    console.log(`✓ [200 OK] /robots.txt                                             | Robots File | Sitemap declared: ${declaresSitemap}`);
     if (!declaresSitemap) {
       errors.push('[Robots Error] /robots.txt does not declare sitemap.xml');
     }
@@ -167,9 +184,23 @@ async function runTechnicalSeoAudit() {
     errors.push(`[Robots Error] ${e.message}`);
   }
 
+  try {
+    const manifestRes = await fetchPage(`${BASE_URL}/manifest.webmanifest`);
+    console.log(`✓ [200 OK] /manifest.webmanifest                                   | Web Manifest | Valid (${manifestRes.body.length} bytes)`);
+  } catch (e) {
+    errors.push(`[Manifest Error] ${e.message}`);
+  }
+
+  try {
+    const iconRes = await fetchPage(`${BASE_URL}/icon.svg`);
+    console.log(`✓ [200 OK] /icon.svg                                               | Browser Tab SVG Logo | Valid (${iconRes.body.length} bytes)`);
+  } catch (e) {
+    errors.push(`[Icon Error] ${e.message}`);
+  }
+
   console.log('\n==================================================');
   console.log(`AUDIT SUMMARY:`);
-  console.log(`Pages Crawled: ${results.length}`);
+  console.log(`Pages Crawled & Verified: ${results.length}`);
   console.log(`Sitemaps Verified: ${sitemapEndpoints.length}`);
   console.log(`Issues / Errors Found: ${errors.length}`);
   console.log('==================================================\n');
@@ -179,7 +210,7 @@ async function runTechnicalSeoAudit() {
     errors.forEach((err) => console.error(`  - ${err}`));
     process.exit(1);
   } else {
-    console.log('ALL ADVANCED SITEMAP & TECHNICAL SEO CHECKS PASSED WITH 0 ERRORS!\n');
+    console.log('🎉 ALL LIVE ENDPOINTS & TECHNICAL SEO AUDITS PASSED WITH 0 ERRORS!\n');
   }
 }
 
