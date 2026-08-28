@@ -8,6 +8,7 @@ import { CATEGORY_LIST } from '@/lib/categories-registry';
 import { CommandSearch } from './CommandSearch';
 import { MobileNav } from './MobileNav';
 import { ThemeToggle } from './ThemeToggle';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -25,31 +26,13 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-40 w-full py-3 pointer-events-none transform-gpu">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4 p-2 sm:px-4 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-sm shadow-slate-100/50 dark:shadow-none pointer-events-auto">
-            {/* Logo with Gradient Accent */}
+            {/* Unique Brand Logo */}
             <Link
               href="/"
-              className="flex items-center gap-3 group flex-shrink-0"
+              className="flex items-center flex-shrink-0"
               title="File Intelligence - Home"
             >
-              <div className="relative">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 group-hover:scale-105 group-hover:shadow-indigo-500/40 transition-all duration-200">
-                  <FileCheck className="w-5 h-5" />
-                </div>
-                <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                </span>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-slate-100">
-                    File<span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">Intelligence</span>
-                  </span>
-                </div>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold tracking-wide uppercase">
-                  Privacy-First Toolkit
-                </span>
-              </div>
+              <BrandLogo size={36} />
             </Link>
 
             {/* Desktop Navigation */}

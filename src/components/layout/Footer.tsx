@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, FileCheck, Lock, Cpu, Globe } from 'lucide-react';
+import { ShieldCheck, Lock, Cpu, Globe } from 'lucide-react';
 import { CATEGORY_LIST } from '@/lib/categories-registry';
 import { TOOL_LIST } from '@/lib/tools-registry';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -47,14 +48,9 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link
               href="/"
-              className="flex items-center gap-2.5 group inline-flex"
+              className="inline-flex"
             >
-              <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-slate-100 flex items-center justify-center text-white dark:text-slate-900">
-                <FileCheck className="w-4 h-4" />
-              </div>
-              <span className="font-bold text-base tracking-tight text-slate-900 dark:text-slate-100">
-                File Intelligence
-              </span>
+              <BrandLogo size={32} />
             </Link>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
               Understand what’s inside your files. Inspect file properties, metadata, hidden content, dimensions, structure, and character encodings quickly and privately.
