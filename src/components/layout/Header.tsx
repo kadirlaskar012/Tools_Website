@@ -22,9 +22,9 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 w-full py-3 pointer-events-none">
+      <header className="fixed top-0 left-0 right-0 z-40 w-full py-3 pointer-events-none transform-gpu">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4 p-2 sm:px-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-sm shadow-slate-100/50 dark:shadow-none pointer-events-auto">
+          <div className="flex items-center justify-between gap-4 p-2 sm:px-4 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-sm shadow-slate-100/50 dark:shadow-none pointer-events-auto">
             {/* Logo with Gradient Accent */}
             <Link
               href="/"

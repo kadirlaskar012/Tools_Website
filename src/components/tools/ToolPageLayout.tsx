@@ -124,9 +124,9 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
 
   return (
     <div className="w-full relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] pointer-events-none -z-10">
-        <div className={`absolute top-0 left-1/3 w-96 h-96 ${theme.bgOrb} rounded-full blur-3xl`}></div>
+      {/* Background ambient lighting (GPU accelerated) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] pointer-events-none -z-10 transform-gpu overflow-hidden">
+        <div className={`absolute top-0 left-1/3 w-96 h-96 ${theme.bgOrb} rounded-full blur-2xl opacity-70`}></div>
       </div>
 
       {/* Schema.org WebApplication Structured Data */}
