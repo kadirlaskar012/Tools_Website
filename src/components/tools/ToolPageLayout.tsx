@@ -567,10 +567,10 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
         </div>
       </main>
 
-      {/* RIGHT COLUMN: Desktop Sidebar (col-span-4 hidden lg:block) */}
-      <aside className="hidden lg:block lg:col-span-4 sticky top-20 space-y-6">
+      {/* RIGHT COLUMN: Desktop Sidebar (col-span-4 hidden lg:block, locked in viewport) */}
+      <aside className="hidden lg:block lg:col-span-4 sticky top-20 self-start space-y-5 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1.5 scrollbar-thin">
         {/* Popular Tools Card */}
-        <div className="p-5 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-3.5">
+        <div className="p-5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-3.5">
           <div className="flex items-center gap-2 pb-2.5 border-b border-slate-100 dark:border-slate-800">
             <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
               <Sparkles className="w-4 h-4" />
