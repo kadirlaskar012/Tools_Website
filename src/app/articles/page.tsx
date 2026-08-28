@@ -6,6 +6,7 @@ import { CATEGORY_LIST, getCategoryById } from '@/lib/categories-registry';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { BreadcrumbSchema } from '@/components/ui/SchemaOrg';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 import {
   BookOpen,
@@ -83,7 +84,7 @@ export default function ArticlesHubPage() {
         items={[{ name: 'Articles', url: '/articles' }]}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pt-28 sm:pb-20">
         {/* Breadcrumb Navigation */}
         <div className="mb-6">
           <Breadcrumbs items={[{ label: 'Articles' }]} />
@@ -182,6 +183,8 @@ export default function ArticlesHubPage() {
           <AdSlot slotId="articles-hub-bottom" format="horizontal" />
         </div>
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }

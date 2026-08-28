@@ -23,6 +23,7 @@ import { TOOL_LIST, getToolsByCategory } from '@/lib/tools-registry';
 import { ARTICLE_LIST } from '@/lib/articles-registry';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { BreadcrumbSchema } from '@/components/ui/SchemaOrg';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -86,7 +87,7 @@ export default function SitemapPage() {
 
       <BreadcrumbSchema items={breadcrumbItems} />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 sm:pt-28 sm:pb-16">
         {/* Breadcrumb Navigation */}
         <Breadcrumbs items={[{ label: 'Sitemap' }]} />
 
@@ -368,6 +369,8 @@ export default function SitemapPage() {
           </section>
         </div>
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }

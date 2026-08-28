@@ -79,7 +79,7 @@ export default function HomePage() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-24">
+      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Small Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-200/80 dark:border-indigo-800/80 bg-indigo-50/80 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-bold tracking-wider uppercase mb-8 shadow-xs backdrop-blur-md">

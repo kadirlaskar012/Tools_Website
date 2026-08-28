@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Menu, FileCheck, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Search, Menu, FileCheck } from 'lucide-react';
 import { CATEGORY_LIST } from '@/lib/categories-registry';
 import { CommandSearch } from './CommandSearch';
 import { MobileNav } from './MobileNav';
@@ -11,7 +11,6 @@ import { MobileNav } from './MobileNav';
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -20,23 +19,11 @@ export function Header() {
     return () => window.removeEventListener('open-search', handleOpenSearch);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <>
-      <header className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-        isScrolled 
-          ? 'py-2.5 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-sm' 
-          : 'py-4 bg-transparent'
-      }`}>
+      <header className="fixed top-0 left-0 right-0 z-40 w-full py-3 pointer-events-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4 p-2 sm:px-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-sm shadow-slate-100/50 dark:shadow-none">
+          <div className="flex items-center justify-between gap-4 p-2 sm:px-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-sm shadow-slate-100/50 dark:shadow-none pointer-events-auto">
             {/* Logo with Gradient Accent */}
             <Link
               href="/"

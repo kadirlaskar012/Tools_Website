@@ -17,6 +17,7 @@ import {
   FAQPageSchema,
   BreadcrumbSchema,
 } from '@/components/ui/SchemaOrg';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 import {
   BookOpen,
@@ -155,7 +156,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       />
 
       {/* Main Container */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pt-28 sm:pb-20">
         {/* Breadcrumb Navigation */}
         <div className="mb-6">
           <Breadcrumbs
@@ -561,6 +562,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </section>
         )}
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }

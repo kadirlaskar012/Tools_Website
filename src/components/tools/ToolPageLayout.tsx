@@ -35,6 +35,7 @@ import { ToolFAQ } from './ToolFAQ';
 import { RelatedTools } from './RelatedTools';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { WebApplicationSchema } from '@/components/ui/SchemaOrg';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { inspectFileLocally } from '@/lib/client-inspector';
 
 interface ToolPageLayoutProps {
@@ -127,7 +128,7 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
       {/* Schema.org WebApplication Structured Data */}
       <WebApplicationSchema tool={tool} />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-12 sm:pt-4 sm:pb-16">
         {/* Breadcrumbs */}
         <Breadcrumbs
           items={[
@@ -137,8 +138,8 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
         />
 
         {/* Hero Header */}
-        <header className="mb-8">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
+        <header className="mb-5 sm:mb-6">
+          <div className="flex flex-wrap items-center gap-2 mb-2.5">
             <Link
               href={`/${category.slug}`}
               className={`text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border shadow-2xs hover:opacity-80 transition ${theme.badge}`}
@@ -167,7 +168,7 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
           </div>
 
           {/* Privacy Banner */}
-          <div className="mt-5">
+          <div className="mt-4">
             <PrivacyNotice
               level={tool.privacyLevel}
               customText={tool.privacyExplanation}
@@ -178,7 +179,7 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
         {/* Interactive Tool Workspace (Focused Glassmorphism Container) */}
         <section
           aria-label="Tool Workspace"
-          className="my-8 relative group"
+          className="my-6 relative group"
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
 
@@ -557,6 +558,9 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
           />
         </div>
       </div>
+
+      {/* Floating Go To Top Button */}
+      <ScrollToTop />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { ShieldCheck, Cpu, Lock, CheckCircle2, FileCheck, Eye } from 'lucide-react';
 import { getBaseUrl } from '@/lib/utils';
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 sm:pt-28 sm:pb-16">
       <Breadcrumbs items={[{ label: 'About' }]} />
 
       <header className="mb-10">
@@ -114,6 +115,8 @@ export default function AboutPage() {
           </ul>
         </section>
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }

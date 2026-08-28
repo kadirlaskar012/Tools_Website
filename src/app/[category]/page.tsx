@@ -13,6 +13,7 @@ import { PrivacyNotice } from '@/components/tools/PrivacyNotice';
 import { ToolFAQ } from '@/components/tools/ToolFAQ';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { FAQPageSchema, BreadcrumbSchema } from '@/components/ui/SchemaOrg';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 import {
   ShieldCheck,
@@ -148,7 +149,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 sm:pt-28 sm:pb-16">
         {/* Breadcrumbs */}
         <Breadcrumbs items={[{ label: category.name }]} />
 
@@ -271,6 +272,8 @@ export default async function CategoryPage({ params }: PageProps) {
           </div>
         </section>
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }
