@@ -6,7 +6,6 @@ import { CATEGORY_LIST, getCategoryById } from '@/lib/categories-registry';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { BreadcrumbSchema } from '@/components/ui/SchemaOrg';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 import {
   BookOpen,
@@ -183,8 +182,6 @@ export default function ArticlesHubPage() {
           <AdSlot slotId="articles-hub-bottom" format="horizontal" />
         </div>
       </div>
-
-      <ScrollToTop />
     </div>
   );
 }

@@ -23,7 +23,6 @@ import { TOOL_LIST, getToolsByCategory } from '@/lib/tools-registry';
 import { ARTICLE_LIST } from '@/lib/articles-registry';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { BreadcrumbSchema } from '@/components/ui/SchemaOrg';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -369,8 +368,6 @@ export default function SitemapPage() {
           </section>
         </div>
       </div>
-
-      <ScrollToTop />
     </div>
   );
 }

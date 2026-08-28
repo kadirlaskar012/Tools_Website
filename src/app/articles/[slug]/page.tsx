@@ -17,7 +17,6 @@ import {
   FAQPageSchema,
   BreadcrumbSchema,
 } from '@/components/ui/SchemaOrg';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 import {
   BookOpen,
@@ -562,8 +561,6 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </section>
         )}
       </div>
-
-      <ScrollToTop />
     </div>
   );
 }

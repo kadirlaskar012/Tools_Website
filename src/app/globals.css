@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -7,6 +9,17 @@
   --card-foreground: #0f172a;
   --border: #e2e8f0;
   --ring: #6366f1;
+  color-scheme: light;
+}
+
+.dark, [data-theme="dark"] {
+  --background: #090d16;
+  --foreground: #f8fafc;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --border: #1e293b;
+  --ring: #818cf8;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -14,17 +27,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #090d16;
-    --foreground: #f8fafc;
-    --card: #0f172a;
-    --card-foreground: #f8fafc;
-    --border: #1e293b;
-    --ring: #818cf8;
-  }
 }
 
 html {
@@ -42,6 +44,13 @@ body {
     radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.04) 0px, transparent 50%),
     radial-gradient(at 50% 100%, rgba(56, 189, 248, 0.04) 0px, transparent 50%);
   background-attachment: fixed;
+}
+
+.dark body {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
 }
 
 /* Custom background mesh and glow effects */
@@ -73,17 +82,17 @@ body {
 
 /* Floating header glass */
 .glass-header {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.90);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(226, 232, 240, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .dark .glass-header {
-  background: rgba(9, 13, 22, 0.85);
+  background: rgba(11, 16, 28, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(30, 41, 59, 0.8);
 }
 
 /* Gradient borders */
@@ -105,10 +114,18 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.35);
-  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.5);
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.4);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.6);
 }

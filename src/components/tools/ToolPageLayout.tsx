@@ -38,7 +38,6 @@ import { ToolFAQ } from './ToolFAQ';
 import { RelatedTools } from './RelatedTools';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { WebApplicationSchema } from '@/components/ui/SchemaOrg';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { inspectFileLocally } from '@/lib/client-inspector';
 
 interface ToolPageLayoutProps {
@@ -648,9 +647,6 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
       </aside>
     </div>
   </div>
-
-  {/* Floating Go To Top Button */}
-  <ScrollToTop />
 </div>
   );
 }

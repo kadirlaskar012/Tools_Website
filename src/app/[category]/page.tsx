@@ -13,7 +13,6 @@ import { PrivacyNotice } from '@/components/tools/PrivacyNotice';
 import { ToolFAQ } from '@/components/tools/ToolFAQ';
 import { AdSlot } from '@/components/ui/AdSlot';
 import { FAQPageSchema, BreadcrumbSchema } from '@/components/ui/SchemaOrg';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { getBaseUrl } from '@/lib/utils';
 import {
   ShieldCheck,
@@ -272,8 +271,6 @@ export default async function CategoryPage({ params }: PageProps) {
           </div>
         </section>
       </div>
-
-      <ScrollToTop />
     </div>
   );
 }

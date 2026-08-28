@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Clock } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 
 export type ThemeMode = 'auto' | 'light' | 'dark';
 
@@ -24,12 +24,15 @@ export function ThemeToggle() {
       shouldBeDark = hours >= 18 || hours < 6;
     }
 
+    const root = document.documentElement;
     if (shouldBeDark) {
-      document.documentElement.classList.add('dark');
-      document.documentElement.setAttribute('data-theme', 'dark');
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
+      root.style.colorScheme = 'dark';
     } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.setAttribute('data-theme', 'light');
+      root.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
+      root.style.colorScheme = 'light';
     }
 
     setIsDarkEffective(shouldBeDark);
@@ -47,19 +50,19 @@ export function ThemeToggle() {
       if (currentPref === 'auto') {
         applyTheme('auto');
       }
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
 
-  const handleCycleTheme = () => {
-    let nextMode: ThemeMode = 'light';
+  const handleToggle = () => {
+    // Smooth intuitive switch: if light -> dark; if dark -> light; or cycle
+    let nextMode: ThemeMode;
     if (mode === 'auto') {
-      // If currently auto, switch to explicit opposite or light
       nextMode = isDarkEffective ? 'light' : 'dark';
     } else if (mode === 'light') {
       nextMode = 'dark';
-    } else if (mode === 'dark') {
+    } else {
       nextMode = 'auto';
     }
 
@@ -70,40 +73,35 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 animate-pulse" />
+      <div className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" />
     );
   }
 
-  const getLabel = () => {
-    if (mode === 'auto') {
-      return `Theme: Auto (${isDarkEffective ? 'Night' : 'Day'})`;
-    }
-    return `Theme: ${mode === 'dark' ? 'Dark' : 'Light'}`;
-  };
+  const tooltipText = mode === 'auto' 
+    ? `Theme: Auto (${isDarkEffective ? 'Night/Dark' : 'Day/Light'})`
+    : `Theme: ${mode === 'dark' ? 'Dark Mode' : 'Light Mode'}`;
 
   return (
     <button
       type="button"
-      onClick={handleCycleTheme}
-      title={`${getLabel()} - Click to cycle (Light / Dark / Auto)`}
-      aria-label={`${getLabel()} - Click to switch theme`}
-      className="relative flex items-center justify-center w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl bg-slate-100/90 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 hover:border-indigo-300 dark:hover:border-indigo-700/80 transition-all duration-200 shadow-xs focus:outline-hidden focus:ring-2 focus:ring-indigo-500 flex-shrink-0"
+      onClick={handleToggle}
+      title={`${tooltipText} • Click to switch`}
+      aria-label={`${tooltipText} • Click to switch`}
+      className="relative flex items-center justify-center w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all duration-200 cursor-pointer shadow-xs focus:outline-hidden focus:ring-2 focus:ring-indigo-500 flex-shrink-0"
     >
-      {mode === 'auto' ? (
-        <div className="relative flex items-center justify-center">
-          {isDarkEffective ? (
-            <Moon className="w-4 h-4 text-purple-400 animate-in fade-in zoom-in-75 duration-200" />
-          ) : (
-            <Sun className="w-4 h-4 text-amber-500 animate-in fade-in zoom-in-75 duration-200" />
-          )}
-          <span className="absolute -bottom-1 -right-1 flex h-2 w-2">
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
-          </span>
-        </div>
-      ) : mode === 'dark' ? (
-        <Moon className="w-4 h-4 text-indigo-400 animate-in fade-in zoom-in-75 duration-200" />
+      {isDarkEffective ? (
+        <Moon className="w-4 h-4 text-purple-400 dark:text-purple-300 transition-transform duration-200 transform hover:rotate-12" />
       ) : (
-        <Sun className="w-4 h-4 text-amber-500 animate-in fade-in zoom-in-75 duration-200" />
+        <Sun className="w-4 h-4 text-amber-500 transition-transform duration-200 transform hover:rotate-45" />
+      )}
+      
+      {mode === 'auto' && (
+        <span
+          className="absolute -top-1 -right-1 flex h-2 w-2"
+          title="Auto Time-Based"
+        >
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+        </span>
       )}
     </button>
   );

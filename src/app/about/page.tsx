@@ -1,7 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { ShieldCheck, Cpu, Lock, CheckCircle2, FileCheck, Eye } from 'lucide-react';
 import { getBaseUrl } from '@/lib/utils';
 
@@ -115,8 +114,6 @@ export default function AboutPage() {
           </ul>
         </section>
       </div>
-
-      <ScrollToTop />
     </div>
   );
 }
