@@ -132,7 +132,7 @@ export function ToolPageLayout({ tool }: ToolPageLayoutProps) {
       {/* Schema.org WebApplication Structured Data */}
       <WebApplicationSchema tool={tool} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-12 sm:pt-4 sm:pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 sm:pt-24 sm:pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Left Content Area (col-span-8) */}
           <main className="lg:col-span-8 w-full min-w-0">

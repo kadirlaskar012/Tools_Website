@@ -167,7 +167,7 @@ export default function ArticlesHubPage() {
                     </div>
 
                     <div className="pt-4 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-                      <span>Read Guide (2,000+ words)</span>
+                      <span>Read Guide</span>
                       <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </div>
                   </Link>

@@ -17,6 +17,8 @@ import {
   FAQPageSchema,
   BreadcrumbSchema,
 } from '@/components/ui/SchemaOrg';
+import { ArticleTOC } from '@/components/articles/ArticleTOC';
+import { RichArticleText } from '@/components/articles/RichArticleText';
 import { getBaseUrl } from '@/lib/utils';
 import {
   BookOpen,
@@ -225,7 +227,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   Direct Answer & Key Takeaway
                 </h3>
                 <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-                  {article.quickTakeaway}
+                  <RichArticleText text={article.quickTakeaway} />
                 </p>
               </div>
             </div>
@@ -251,7 +253,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                     key={pIdx}
                     className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed font-normal"
                   >
-                    {p}
+                    <RichArticleText text={p} />
                   </p>
                 ))}
 
@@ -287,7 +289,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                             {section.callout.title}
                           </h4>
                         )}
-                        <p className="text-sm leading-relaxed">{section.callout.text}</p>
+                        <p className="text-sm leading-relaxed">
+                          <RichArticleText text={section.callout.text} />
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -362,7 +366,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                             key={scIdx}
                             className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed"
                           >
-                            {sc}
+                            <RichArticleText text={sc} />
                           </p>
                         ))}
                       </div>
@@ -423,7 +427,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                         <span>{faq.question}</span>
                       </h3>
                       <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed pl-6">
-                        {faq.answer}
+                        <RichArticleText text={faq.answer} />
                       </p>
                     </div>
                   ))}
@@ -438,7 +442,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   Conclusion & Final Recommendations
                 </h3>
                 <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                  {article.conclusion}
+                  <RichArticleText text={article.conclusion} />
                 </p>
               </section>
             )}
@@ -450,35 +454,13 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </main>
 
           {/* Sticky Table of Contents Sidebar (Desktop) */}
-          <aside className="hidden lg:block lg:col-span-4">
-            <div className="sticky top-24 space-y-6">
-              {/* Table of Contents Card */}
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-4">
-                  On This Page
-                </h3>
-                <nav className="space-y-2.5">
-                  {article.sections.map((sec, sIdx) => (
-                    <a
-                      key={sIdx}
-                      href={`#${sec.id}`}
-                      className="block text-sm text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 font-medium transition-colors leading-snug line-clamp-1"
-                    >
-                      {sec.title}
-                    </a>
-                  ))}
-                  {article.faqs && article.faqs.length > 0 && (
-                    <a
-                      href="#faqs"
-                      className="block text-sm text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 font-medium transition-colors"
-                    >
-                      Frequently Asked Questions
-                    </a>
-                  )}
-                </nav>
-              </div>
+          <aside className="hidden lg:block lg:col-span-4 sticky top-20 self-start space-y-6 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1">
+            <ArticleTOC
+              sections={article.sections}
+              hasFaqs={Boolean(article.faqs && article.faqs.length > 0)}
+            />
 
-              {/* Sidebar Primary Tool Widget */}
+            {/* Sidebar Primary Tool Widget */}
               {primaryTool && (
                 <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/40 dark:to-purple-950/40 border border-indigo-100 dark:border-indigo-900/60 shadow-sm space-y-4">
                   <div className="flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
@@ -500,9 +482,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* Sidebar Ad Slot */}
-              <AdSlot slotId="article-sidebar-square" format="rectangle" />
-            </div>
+            {/* Sidebar Ad Slot */}
+            <AdSlot slotId="article-sidebar-square" format="rectangle" />
           </aside>
         </div>
 
